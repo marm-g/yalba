@@ -15,8 +15,9 @@ datasource db {
 }
 
 model Champion {
-	id Int @id
+	id String @id // these are all simple numbers, but keeping this the same as the Riot API
 	name String
+	slug String // filepath/URL friendly champ name
 }
 
 // Necessary for Next auth

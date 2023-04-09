@@ -2,13 +2,14 @@ import {prisma} from "../src/server/db";
 import champData from "../data/champions.json";
 
 async function main() {
-	for (const {key, name} of Object.values(champData.data)) {
+	for (const {key, name, id} of Object.values(champData.data)) {
 		await prisma.champion.upsert({
 			where: {
 				id: key,
 			},
 			create: {
 				id: key,
+				slug: id,
 				name
 			},
 			update: {},
