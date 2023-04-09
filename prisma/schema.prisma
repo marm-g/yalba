@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -15,9 +15,20 @@ datasource db {
 }
 
 model Champion {
-	id String @id // these are all simple numbers, but keeping this the same as the Riot API
-	name String
-	slug String // filepath/URL friendly champ name
+    id     String  @id // these are all simple numbers, but keeping this the same as the Riot API
+    name   String
+    slug   String // filepath/URL friendly champ name
+    // TODO(reno): Make sure this looks correct, I might have done it in the opposite order
+    builds Build[] @relation()
+}
+
+// TODO(reno): see if CUID is actually a good idea here
+model Build {
+    id       String   @id @default(cuid())
+    // TODO(reno): I think this onDelete is wrong - if a build gets deleted, we just want to remove
+    // it from the Champion, not also delete the Champion object
+    champion Champion @relation(fields: [id], references: [id], onDelete: Cascade)
+	abilityOrder String[]
 }
 
 // Necessary for Next auth
@@ -27,12 +38,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 

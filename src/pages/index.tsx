@@ -1,22 +1,16 @@
 import {NextPage} from "next";
-import Head from "next/head";
 import Link from "next/link";
-import {signIn, signOut, useSession} from "next-auth/react";
-
 import {RouterOutputs, api} from "~/utils/api";
 import Image from "next/image";
-import {Header} from "~/components/header";
-
 
 type GetChampion = RouterOutputs["champion"]["getAll"][0]
 const ChampionIcon = ({id, name, slug}: GetChampion) => {
 	return (
 		<div>
 			<Link href={`/champion/${id}`}>
-				<Image alt="" src={`/champ_icons/${slug}.jpg`} width={100} height={100} className="h-32 w-32 rounded-full" />
-				<h3>{name}</h3>
+				<Image alt={`Champion portrait of ${name}`} src={`/champ_icons/${slug}.jpg`} width={100} height={100} className="h-32 w-32 rounded-full" />
 			</Link>
-
+			<h3>{name}</h3>
 		</div>
 	);
 }

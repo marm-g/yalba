@@ -1,18 +1,30 @@
-import {NextPage} from "next";
+import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import {signIn, signOut, useSession} from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
-import {api} from "~/utils/api";
+import { api } from "~/utils/api";
 import Image from "next/image";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+
+const BuildBadge = ({}) => {
+	
+}
 
 const Home: NextPage = () => {
 	const router = useRouter();
 	let { id } = router.query;
 	if (!id) {
-		return <div></div>
-	const {data, isLoading} = api.champion.getChampionById.useQuery({id});
+		return <div>404</div>
+	}
+	if (Array.isArray(id)) {
+		// TODO(reno): see if we can ensure that we only ever have one ID
+		id = id[0];
+		if (!id) {
+			return <div>404</div>;
+		}
+	}
+	const { data, isLoading } = api.champion.getChampionById.useQuery({ id });
 	if (isLoading) {
 		return <><div>Loading...</div></>
 	}

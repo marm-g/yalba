@@ -1,3 +1,15 @@
+# Development Environment
+
+## Database Setup
+
+- Install Docker/Docker Desktop, run the following from your terminal:
+```
+docker run --name yalba-db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+```
+- Make a .env file: `cp .env.example .env`
+- Add the database URL to it: `DATABASE_URL="postgres://postgres:postgres@localhost:5432/yalba?schema=public"`
+
+
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
