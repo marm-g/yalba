@@ -6,17 +6,58 @@ import runeData from "../data/runes.json";
 async function generateGameModes() {
 	const gameModes = [
 		{
+			id: "11",
 			name: "Normal",
 			mapId: "11"
 		},
 		{
+			id: "12",
 			name: "ARAM",
 			mapId: "12"
 		}
 	];
 
-	await prisma.gameMode.createMany({
-		data: gameModes
+	for (const { id, name, mapId } of Object.values(gameModes)) {
+		await prisma.gameMode.upsert({
+			where: {
+				id
+			},
+			create: {
+				id,
+				name,
+				mapId
+			},
+			update: {}
+		});
+	}
+}
+
+
+async function generateBuilds() {
+	await prisma.build.deleteMany({
+		where: {
+			gameModeId: "11"
+		}
+	});
+	await prisma.build.createMany({
+		data: [
+			{
+				championId: "142",
+				description: "Liandry's & Electrocute",
+				winRate: 75.2,
+				mythicItemId: "6653",
+				gameModeId: "11",
+				keystoneId: "8112"
+			},
+			{
+				championId: "142",
+				description: "Kraken Slayer & Comet",
+				winRate: 24.1,
+				mythicItemId: "6672",
+				gameModeId: "11",
+				keystoneId: "8229"
+			}
+		]
 	});
 }
 
@@ -73,6 +114,7 @@ async function main() {
 			i++;
 		}
 	}
+	generateBuilds();
 }
 
 main()

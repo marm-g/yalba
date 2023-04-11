@@ -36,8 +36,8 @@ model Build {
     mythicItem   Item     @relation(fields: [mythicItemId], references: [id])
     gameMode     GameMode @relation(fields: [gameModeId], references: [id])
     gameModeId   String
-    keystone     Rune     @relation(fields: [runeId], references: [id])
-    runeId       String
+    keystone     Rune     @relation(fields: [keystoneId], references: [id])
+    keystoneId   String
 }
 
 model Item {
