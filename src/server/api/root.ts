@@ -1,5 +1,6 @@
 import { createTRPCRouter } from "~/server/api/trpc";
-import {championRouter} from "./routers/champions";
+import { championRouter } from "./routers/champions";
+import { buildsRouter } from "./routers/builds";
 
 /**
  * This is the primary router for your server.
@@ -7,7 +8,8 @@ import {championRouter} from "./routers/champions";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  champion: championRouter,
+	champion: championRouter,
+	build: buildsRouter
 });
 
 // export type definition of API
