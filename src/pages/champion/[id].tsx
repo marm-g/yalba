@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 const BuildBadge = ({}) => {
-	
 }
 
 const Home: NextPage = () => {
@@ -34,7 +33,7 @@ const Home: NextPage = () => {
 	return (
 		<>
 			<div className="flex">
-				<Image src={`/champ_icons/${data.slug}.jpg`} alt="" width={100} height={100} className="h-32 w-32 rounded-full" />
+				<Image src={`/img/champ_icons/${data.slug}.jpg`} alt="" width={100} height={100} className="h-32 w-32 rounded-full" />
 				<h2 className="font-bold text-3xl ml-10">{data?.name}</h2>
 			</div>
 			<div className="m-10">placeholder: champ info?</div>
