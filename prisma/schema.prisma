@@ -19,16 +19,50 @@ model Champion {
     name   String
     slug   String // filepath/URL friendly champ name
     // TODO(reno): Make sure this looks correct, I might have done it in the opposite order
-    builds Build[] @relation()
+    builds Build[]
 }
 
 // TODO(reno): see if CUID is actually a good idea here
 model Build {
-    id       String   @id @default(cuid())
+    id           String   @id @default(cuid())
+    championId   String
     // TODO(reno): I think this onDelete is wrong - if a build gets deleted, we just want to remove
     // it from the Champion, not also delete the Champion object
-    champion Champion @relation(fields: [id], references: [id], onDelete: Cascade)
-	abilityOrder String[]
+    champion     Champion @relation(fields: [championId], references: [id])
+    abilityOrder String[]
+    description  String
+    winRate      Float
+    mythicItemId String
+    mythicItem   Item     @relation(fields: [mythicItemId], references: [id])
+    gameMode     GameMode @relation(fields: [gameModeId], references: [id])
+    gameModeId   String
+    keystone     Rune     @relation(fields: [runeId], references: [id])
+    runeId       String
+}
+
+model Item {
+    id             String  @id
+    name           String
+    description    String
+    itemType       String
+    buildsAsMythic Build[]
+}
+
+model Rune {
+    id               String  @id
+    name             String
+    slug             String
+    tree             String
+    depth            Int
+    description      String
+    buildsAsKeystone Build[]
+}
+
+model GameMode {
+    id     String  @id @default(cuid())
+    mapId  String // Riot stores this info, so this is a reference to their data, if we need it.
+    name   String
+    builds Build[]
 }
 
 // Necessary for Next auth
