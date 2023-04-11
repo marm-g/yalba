@@ -1,7 +1,17 @@
-version: "3.9"
+version: '3'
 services:
-  app:
-    platform: "linux/amd64"
+  yalba-db:
+    image: postgres:latest
+    restart: always
+    container_name: yalba-db
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  # TODO: add prisma service and connect postgres to yalba
+
+  yalba-app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,6 +20,7 @@ services:
     working_dir: /app
     ports:
       - "3000:3000"
-    image: t3-app
+    # image: t3-app
+    container_name: yalba-app
     environment:
-      - DATABASE_URL=database_url_goes_here # hello yes fix this
+      DATABASE_URL: "localhost" # hello yes fix this
