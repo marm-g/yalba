@@ -7,9 +7,9 @@ import { api } from "~/utils/api";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const BuildBadge = ({}) => {
+// const BuildBadge = ({}) => {
 	
-}
+// } 
 
 const Home: NextPage = () => {
 	const router = useRouter();
