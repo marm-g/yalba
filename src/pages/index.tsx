@@ -1,10 +1,10 @@
-import {NextPage} from "next";
+import { NextPage } from "next";
 import Link from "next/link";
-import {RouterOutputs, api} from "~/utils/api";
+import { RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
 
 type GetChampion = RouterOutputs["champion"]["getAll"][0]
-const ChampionIcon = ({id, name, slug}: GetChampion) => {
+const ChampionIcon = ({ id, name, slug }: GetChampion) => {
 	return (
 		<div>
 			<Link href={`/champion/${id}`}>
@@ -17,12 +17,12 @@ const ChampionIcon = ({id, name, slug}: GetChampion) => {
 
 
 const Home: NextPage = () => {
-	const {data} = api.champion.getAll.useQuery();
+	const { data } = api.champion.getAll.useQuery();
 
 	return (
 		<>
 			<div className="p-2 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-				{data?.map((champion) => <ChampionIcon {...champion} />)}
+				{data?.map((champion) => <ChampionIcon key={champion.id} {...champion} />)}
 			</div>
 		</>
 	);
