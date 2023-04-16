@@ -47,7 +47,8 @@ async function generateBuilds() {
 				winRate: 75.2,
 				mythicItemId: "6653",
 				gameModeId: "11",
-				keystoneId: "8112"
+				keystoneId: "8112",
+				abilityOrder: ["Q","E","W","Q","Q","R","Q","E","Q","E","R","E","E","W","W","R","W","W"]
 			},
 			{
 				championId: "142",
@@ -55,7 +56,8 @@ async function generateBuilds() {
 				winRate: 24.1,
 				mythicItemId: "6672",
 				gameModeId: "11",
-				keystoneId: "8229"
+				keystoneId: "8229",
+				abilityOrder: ["Q","E","W","Q","Q","R","Q","E","Q","E","R","E","E","W","W","R","W","W"]
 			}
 		]
 	});
@@ -63,7 +65,7 @@ async function generateBuilds() {
 
 
 async function main() {
-	generateGameModes();
+	await generateGameModes();
 	for (const { key, name, id } of Object.values(champData.data)) {
 		await prisma.champion.upsert({
 			where: {
@@ -114,7 +116,7 @@ async function main() {
 			i++;
 		}
 	}
-	generateBuilds();
+	await generateBuilds();
 }
 
 main()
