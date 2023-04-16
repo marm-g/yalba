@@ -1,9 +1,13 @@
-import { type Config } from "tailwindcss";
+import type { Config } from "tailwindcss";
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+		gridTemplateColumns: {
+			'19': 'repeat(19, 1fr)'
+		}
+	},
   },
   plugins: [],
 } satisfies Config;
